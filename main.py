@@ -35,6 +35,16 @@ def download_models():
         "./Inspire/ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models/",
         "../../../../../"
     )
+    download_hugginface(
+        "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/dpt_hybrid-midas-501f0c75.pt?download=true",
+        "./Inspire/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
+        "../../../../../"
+    )
+    download_hugginface(
+        "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/controlnet11Models_softedge.safetensors?download=true",
+        "./Inspire/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
+        "../../../../../"
+    )
 
 
 if not os.path.exists("./Inspire/ComfyUI/models/checkpoints/epicrealism_naturalSinRC1VAE.safetensors"):
