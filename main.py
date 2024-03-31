@@ -41,11 +41,11 @@ download_models()
 
 
 def start_comfyui():
-    subprocess.run(["python", "./ComfyUI/main.py"])
+    subprocess.run(["python", "Inspire/ComfyUI/main.py"])
 
 
 def start_streamlit():
-    subprocess.run(["streamlit", "run", "app.py"])
+    subprocess.run(["streamlit", "run", "Inspire/app.py"])
 
 
 t1 = threading.Thread(target=start_comfyui)
