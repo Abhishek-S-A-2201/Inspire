@@ -37,7 +37,8 @@ def download_models():
     )
 
 
-download_models()
+if not os.path.exists("./Inspire/ComfyUI/models/checkpoints/epicrealism_naturalSinRC1VAE.safetensors"):
+    download_models()
 
 
 def start_comfyui():
