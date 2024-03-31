@@ -1,0 +1,465 @@
+{
+  "4": {
+    "inputs": {
+      "ckpt_name": "epicrealism_naturalSinRC1VAE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "5": {
+    "inputs": {
+      "width": [
+        "120",
+        1
+      ],
+      "height": [
+        "120",
+        2
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "wedding, marriage, love ,special , happy, colorful, realistic, sharp, highly detailed, best quality",
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "blurry, distorted, messy, horror, high heels, illustration, bad quality, drawing, naked, nude, nsfw",
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "69": {
+    "inputs": {
+      "strength": 0.5,
+      "start_percent": 0,
+      "end_percent": 0.7000000000000001,
+      "positive": [
+        "84",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "control_net": [
+        "70",
+        0
+      ],
+      "image": [
+        "81",
+        0
+      ],
+      "model_optional": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "ACN_AdvancedControlNetApply",
+    "_meta": {
+      "title": "BGControl"
+    }
+  },
+  "70": {
+    "inputs": {
+      "control_net_name": "controlnet11Models_softedge.safetensors"
+    },
+    "class_type": "ControlNetLoaderAdvanced",
+    "_meta": {
+      "title": "Load Advanced ControlNet Model 🛂🅐🅒🅝"
+    }
+  },
+  "75": {
+    "inputs": {
+      "image": "84b84a226b9e8dc5f8a1fc3982949ef5.jpg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "FG"
+    }
+  },
+  "81": {
+    "inputs": {
+      "safe": "enable",
+      "resolution": 512,
+      "image": [
+        "99",
+        0
+      ]
+    },
+    "class_type": "HEDPreprocessor",
+    "_meta": {
+      "title": "HED Soft-Edge Lines"
+    }
+  },
+  "83": {
+    "inputs": {
+      "text": "couch , arch background\n(maroon, gold): 1.5",
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Prompt"
+    }
+  },
+  "84": {
+    "inputs": {
+      "conditioning_to": [
+        "83",
+        0
+      ],
+      "conditioning_from": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "ConditioningConcat",
+    "_meta": {
+      "title": "Conditioning (Concat)"
+    }
+  },
+  "88": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "95",
+        0
+      ]
+    },
+    "class_type": "ImageToMask",
+    "_meta": {
+      "title": "Convert Image to Mask"
+    }
+  },
+  "89": {
+    "inputs": {
+      "image": [
+        "75",
+        0
+      ],
+      "mask": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "InpaintPreprocessor",
+    "_meta": {
+      "title": "Inpaint Preprocessor"
+    }
+  },
+  "95": {
+    "inputs": {
+      "a": 6.283185307179586,
+      "bg_threshold": 0.1,
+      "resolution": 512,
+      "image": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "MiDaS-DepthMapPreprocessor",
+    "_meta": {
+      "title": "MiDaS Depth Map"
+    }
+  },
+  "97": {
+    "inputs": {
+      "mask": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "InvertMask",
+    "_meta": {
+      "title": "InvertMask"
+    }
+  },
+  "98": {
+    "inputs": {
+      "image": "bg.jpeg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "BG"
+    }
+  },
+  "99": {
+    "inputs": {
+      "image": [
+        "120",
+        0
+      ],
+      "mask": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "InpaintPreprocessor",
+    "_meta": {
+      "title": "Inpaint Preprocessor"
+    }
+  },
+  "106": {
+    "inputs": {
+      "strength": 0.5,
+      "start_percent": 0,
+      "end_percent": 0.7000000000000001,
+      "positive": [
+        "84",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "control_net": [
+        "70",
+        0
+      ],
+      "image": [
+        "107",
+        0
+      ],
+      "model_optional": [
+        "69",
+        2
+      ]
+    },
+    "class_type": "ACN_AdvancedControlNetApply",
+    "_meta": {
+      "title": "FGControl"
+    }
+  },
+  "107": {
+    "inputs": {
+      "safe": "enable",
+      "resolution": 512,
+      "image": [
+        "89",
+        0
+      ]
+    },
+    "class_type": "HEDPreprocessor",
+    "_meta": {
+      "title": "HED Soft-Edge Lines"
+    }
+  },
+  "111": {
+    "inputs": {
+      "seed": 690465541278651,
+      "steps": 20,
+      "cfg": 9,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "106",
+        2
+      ],
+      "positive": [
+        "106",
+        0
+      ],
+      "negative": [
+        "106",
+        1
+      ],
+      "latent_image": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "113": {
+    "inputs": {
+      "samples": [
+        "111",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "117": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "x": 0,
+      "y": 0
+    },
+    "class_type": "ImageCrop",
+    "_meta": {
+      "title": "ImageCrop"
+    }
+  },
+  "118": {
+    "inputs": {
+      "image": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "GetImageSize+",
+    "_meta": {
+      "title": "🔧 Get Image Size"
+    }
+  },
+  "120": {
+    "inputs": {
+      "width": [
+        "118",
+        0
+      ],
+      "height": [
+        "118",
+        1
+      ],
+      "interpolation": "nearest",
+      "keep_proportion": false,
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "98",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "124": {
+    "inputs": {
+      "blend_factor": 1,
+      "blend_mode": "screen",
+      "image1": [
+        "99",
+        0
+      ],
+      "image2": [
+        "89",
+        0
+      ]
+    },
+    "class_type": "ImageBlend",
+    "_meta": {
+      "title": "ImageBlend"
+    }
+  },
+  "126": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter-plus_sd15.safetensors"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "Load IPAdapter Model"
+    }
+  },
+  "127": {
+    "inputs": {
+      "weight": 0.5,
+      "noise": 0.33,
+      "weight_type": "original",
+      "start_at": 0,
+      "end_at": 0.5,
+      "unfold_batch": false,
+      "ipadapter": [
+        "126",
+        0
+      ],
+      "clip_vision": [
+        "128",
+        0
+      ],
+      "image": [
+        "130",
+        0
+      ],
+      "model": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "IPAdapterApply",
+    "_meta": {
+      "title": "Apply IPAdapter"
+    }
+  },
+  "128": {
+    "inputs": {
+      "clip_name": "model.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "130": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "interpolation": "lanczos",
+      "keep_proportion": true,
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "124",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "132": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "113",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}
