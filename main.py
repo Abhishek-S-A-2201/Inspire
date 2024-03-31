@@ -38,12 +38,12 @@ def download_models():
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/dpt_hybrid-midas-501f0c75.pt?download=true",
         "./Inspire/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
-        "../../../../../"
+        "../../../../../../../"
     )
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/controlnet11Models_softedge.safetensors?download=true",
         "./Inspire/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/",
-        "../../../../../"
+        "../../../../../../../"
     )
 
 
