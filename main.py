@@ -15,25 +15,25 @@ def download_models():
 
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/epicrealism_naturalSinRC1VAE.safetensors?download=true",
-        "./ComfyUI/models/checkpoints/",
-        "../../../"
+        "./Inspire/ComfyUI/models/checkpoints/",
+        "../../../../"
     )
 
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/controlnet11Models_softedge.safetensors?download=true",
-        "./ComfyUI/models/controlnet/",
-        "../../../"
+        "./Inspire/ComfyUI/models/controlnet/",
+        "../../../../"
     )
 
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/model.safetensors?download=true",
-        "./ComfyUI/models/clip_vision/",
-        "../../../"
+        "./Inspire/ComfyUI/models/clip_vision/",
+        "../../../../"
     )
     download_hugginface(
         "https://huggingface.co/Abhishek-Anand/Inspire/resolve/main/ip-adapter-plus_sd15.safetensors?download=true",
-        "./ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models/",
-        "../../../../"
+        "./Inspire/ComfyUI/custom_nodes/ComfyUI_IPAdapter_plus/models/",
+        "../../../../../"
     )
 
 
