@@ -61,7 +61,7 @@ def queue_prompt(prompt, client_id, server_address: str = "http://127.0.0.1:8188
 
 def upload_image(image, type: str, clientID: str):
     image = Image.open(io.BytesIO(image.getvalue()))
-    destination = f'./ComfyUI/input/{clientID}_{type}.jpg'
+    destination = f'./Inspire/ComfyUI/input/{clientID}_{type}.jpg'
     image = image.convert("RGB")
     image.save(destination)
     print("File uploaded...")
@@ -72,7 +72,7 @@ def get_queue(server_address: str = "http://127.0.0.1:8188"):
     try:
         headers = {'Content-Type': 'application/json'}
         while True:
-            time.sleep(30)
+            time.sleep(15)
             req = requests.get(
                 "{}/queue".format(server_address), headers=headers)
             req = req.json()
@@ -89,9 +89,9 @@ def get_queue(server_address: str = "http://127.0.0.1:8188"):
 def get_outputs(client_id):
     time.sleep(10)
     images = [""]*4
-    for idx, image in enumerate(glob.glob(f"./ComfyUI/output/{client_id}*")):
+    for idx, image in enumerate(glob.glob(f"./Inspire/ComfyUI/output/{client_id}*")):
             images[idx] = image
     if not images:
-        images = ['.test_images/Toonyou.jpeg', '.test_images/pixelart.jpeg',
-                  '.test_images/painting.png', '.test_images/seekyou.png']
+        images = ['./Inspiretest_images/Toonyou.jpeg', './Inspire/test_images/pixelart.jpeg',
+                  './Inspiretest_images/painting.png', './Inspiretest_images/seekyou.png']
     return images
