@@ -2,6 +2,7 @@ import threading
 import subprocess
 import time
 import sys
+import os
 
 
 def download_models():
