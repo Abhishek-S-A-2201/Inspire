@@ -1,0 +1,50 @@
+{
+  "190": {
+    "inputs": {
+      "image": "couch.jpeg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "195": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "196",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "196": {
+    "inputs": {
+      "upscale_model": [
+        "198",
+        0
+      ],
+      "image": [
+        "190",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "198": {
+    "inputs": {
+      "model_name": "4xUltrasharp_4xUltrasharpV10.pt"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  }
+}

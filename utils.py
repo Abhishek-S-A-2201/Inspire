@@ -5,34 +5,23 @@ import time
 import glob
 import io
 from PIL import Image
+import random
 
 
-def get_prompt(workflow, client_id, positive, colors, no_of_images, main_strength, bg_strength, prompt_strength):
+def get_generate_image_prompt(workflow, client_id, positive, colors, no_of_images, main_strength, prompt_strength):
     f = open(workflow, 'r')
     prompt = json.loads(f.read())
 
     id_to_class_type = {id: details['class_type']
                         for id, details in prompt.items()}
 
-    empty_image = [key for key, value in id_to_class_type.items()
-                   if value == 'EmptyLatentImage'][0]
-    prompt.get(empty_image)['inputs']['batch_size'] = no_of_images
-
-    bg_net = [key for key, value in id_to_class_type.items()
-              if value == 'ACN_AdvancedControlNetApply'][0]
-    prompt.get(bg_net)['inputs']['strength'] = bg_strength
-
-    fg_net = [key for key, value in id_to_class_type.items()
-              if value == 'ACN_AdvancedControlNetApply'][1]
-    prompt.get(fg_net)['inputs']['strength'] = main_strength
+    main = [key for key, value in id_to_class_type.items()
+              if value == 'IPAdapterAdvanced'][0]
+    prompt.get(main)['inputs']['weight'] = main_strength
 
     load_main_image = [
         key for key, value in id_to_class_type.items() if value == 'LoadImage'][0]
     prompt.get(load_main_image)['inputs']['image'] = f'{client_id}_main.jpg'
-
-    load_bg_image = [
-        key for key, value in id_to_class_type.items() if value == 'LoadImage'][1]
-    prompt.get(load_bg_image)['inputs']['image'] = f'{client_id}_bg.jpg'
 
     save_image = [key for key, value in id_to_class_type.items()
                   if value == 'SaveImage'][0]
@@ -45,7 +34,52 @@ def get_prompt(workflow, client_id, positive, colors, no_of_images, main_strengt
 
     k_sampler = [key for key, value in id_to_class_type.items()
                  if value == 'KSampler'][0]
-    prompt.get(save_image)['inputs']['cfg'] = prompt_strength
+    prompt.get(k_sampler)['inputs']['seed'] = random.randint(10**14, 10**15-1)
+    prompt.get(k_sampler)['inputs']['cfg'] = prompt_strength
+
+    return prompt
+
+def generate_imageless_workflow(workflow, client_id, positive, colors, no_of_images, prompt_strength):
+    f = open(workflow, 'r')
+    prompt = json.loads(f.read())
+
+    id_to_class_type = {id: details['class_type']
+                        for id, details in prompt.items()}
+
+    empty_image = [key for key, value in id_to_class_type.items()
+                   if value == 'EmptyLatentImage'][0]
+    prompt.get(empty_image)['inputs']['batch_size'] = no_of_images
+
+    save_image = [key for key, value in id_to_class_type.items()
+                  if value == 'SaveImage'][0]
+    prompt.get(save_image)['inputs']['filename_prefix'] = str(client_id)
+
+    positive_prompt = [
+        key for key, value in id_to_class_type.items() if value == 'CLIPTextEncode'][-1]
+    positive = f"{positive}\n({colors}): 1.5"
+    prompt.get(positive_prompt)['inputs']['text'] = positive
+
+    k_sampler = [key for key, value in id_to_class_type.items()
+                 if value == 'KSampler'][0]
+    prompt.get(k_sampler)['inputs']['seed'] = random.randint(10**14, 10**15-1)
+    prompt.get(k_sampler)['inputs']['cfg'] = prompt_strength
+
+    return prompt
+
+def image_processing(workflow, client_id):
+    f = open(workflow, 'r')
+    prompt = json.loads(f.read())
+
+    id_to_class_type = {id: details['class_type']
+                        for id, details in prompt.items()}
+
+    load_main_image = [
+        key for key, value in id_to_class_type.items() if value == 'LoadImage'][0]
+    prompt.get(load_main_image)['inputs']['image'] = f'{client_id}_main.jpg'
+
+    save_image = [key for key, value in id_to_class_type.items()
+                  if value == 'SaveImage'][0]
+    prompt.get(save_image)['inputs']['filename_prefix'] = str(client_id)
 
     return prompt
 
@@ -67,12 +101,12 @@ def upload_image(image, type: str, clientID: str):
     print("File uploaded...")
 
 
-def get_queue(server_address: str = "http://127.0.0.1:8188"):
-    time.sleep(10)
+def get_queue(server_address: str = "http://127.0.0.1:8188", ttl: int = 10):
+    time.sleep(5)
     try:
         headers = {'Content-Type': 'application/json'}
         while True:
-            time.sleep(15)
+            time.sleep(ttl)
             req = requests.get(
                 "{}/queue".format(server_address), headers=headers)
             req = req.json()

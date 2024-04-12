@@ -1,0 +1,136 @@
+{
+  "132": {
+    "inputs": {
+      "text": "wedding, marriage, love ,special , happy, colorful, realistic, sharp, highly detailed, best quality",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "133": {
+    "inputs": {
+      "text": "blurry, distorted, messy, horror, high heels, illustration, bad quality, drawing, naked, nude, nsfw, humans, living beings",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "134": {
+    "inputs": {
+      "text": "an arch backdrop\n(maroon, gold): 1.5",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "135": {
+    "inputs": {
+      "ckpt_name": "epicrealism_naturalSinRC1VAE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "145": {
+    "inputs": {
+      "conditioning_1": [
+        "134",
+        0
+      ],
+      "conditioning_2": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine",
+    "_meta": {
+      "title": "Conditioning (Combine)"
+    }
+  },
+  "148": {
+    "inputs": {
+      "seed": 207402024933280,
+      "steps": 25,
+      "cfg": 9,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "135",
+        0
+      ],
+      "positive": [
+        "145",
+        0
+      ],
+      "negative": [
+        "133",
+        0
+      ],
+      "latent_image": [
+        "150",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "150": {
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "161": {
+    "inputs": {
+      "samples": [
+        "148",
+        0
+      ],
+      "vae": [
+        "135",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "162": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "161",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}

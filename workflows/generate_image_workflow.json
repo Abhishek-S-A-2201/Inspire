@@ -1,0 +1,275 @@
+{
+  "132": {
+    "inputs": {
+      "text": "wedding, marriage, love ,special , happy, colorful, realistic, sharp, highly detailed, best quality",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "133": {
+    "inputs": {
+      "text": "blurry, distorted, messy, horror, high heels, illustration, bad quality, drawing, naked, nude, nsfw, humans , living beings",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "134": {
+    "inputs": {
+      "text": "an arch backdrop\n(maroon, gold): 1.5",
+      "clip": [
+        "135",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "135": {
+    "inputs": {
+      "ckpt_name": "epicrealism_naturalSinRC1VAE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "136": {
+    "inputs": {
+      "image": "bg.jpeg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "145": {
+    "inputs": {
+      "conditioning_1": [
+        "134",
+        0
+      ],
+      "conditioning_2": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "ConditioningCombine",
+    "_meta": {
+      "title": "Conditioning (Combine)"
+    }
+  },
+  "148": {
+    "inputs": {
+      "seed": 262305108636835,
+      "steps": 25,
+      "cfg": 9,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "184",
+        0
+      ],
+      "positive": [
+        "145",
+        0
+      ],
+      "negative": [
+        "133",
+        0
+      ],
+      "latent_image": [
+        "150",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "149": {
+    "inputs": {
+      "image": [
+        "136",
+        0
+      ]
+    },
+    "class_type": "GetImageSize+",
+    "_meta": {
+      "title": "🔧 Get Image Size"
+    }
+  },
+  "150": {
+    "inputs": {
+      "width": [
+        "149",
+        0
+      ],
+      "height": [
+        "149",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "151": {
+    "inputs": {
+      "width": 488,
+      "height": 488,
+      "interpolation": "nearest",
+      "keep_proportion": true,
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "136",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "158": {
+    "inputs": {
+      "clip_name": "model.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "161": {
+    "inputs": {
+      "samples": [
+        "148",
+        0
+      ],
+      "vae": [
+        "135",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "162": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "161",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "184": {
+    "inputs": {
+      "weight": 0.8,
+      "weight_type": "linear",
+      "combine_embeds": "average",
+      "start_at": 0,
+      "end_at": 1,
+      "embeds_scaling": "V only",
+      "model": [
+        "135",
+        0
+      ],
+      "ipadapter": [
+        "186",
+        0
+      ],
+      "image": [
+        "151",
+        0
+      ],
+      "clip_vision": [
+        "158",
+        0
+      ]
+    },
+    "class_type": "IPAdapterAdvanced",
+    "_meta": {
+      "title": "IPAdapter Advanced"
+    }
+  },
+  "186": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter_sd15.safetensors"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "IPAdapter Model Loader"
+    }
+  },
+  "187": {
+    "inputs": {
+      "type": "fade",
+      "strength": 1,
+      "blur": 0,
+      "image_optional": [
+        "151",
+        0
+      ]
+    },
+    "class_type": "IPAdapterNoise",
+    "_meta": {
+      "title": "IPAdapter Noise"
+    }
+  },
+  "188": {
+    "inputs": {
+      "weight": 0.3,
+      "weight_type": "linear",
+      "combine_embeds": "add",
+      "start_at": 0,
+      "end_at": 1,
+      "embeds_scaling": "V only",
+      "model": [
+        "184",
+        0
+      ],
+      "ipadapter": [
+        "186",
+        0
+      ],
+      "image": [
+        "187",
+        0
+      ],
+      "clip_vision": [
+        "158",
+        0
+      ]
+    },
+    "class_type": "IPAdapterAdvanced",
+    "_meta": {
+      "title": "IPAdapter Advanced"
+    }
+  }
+}

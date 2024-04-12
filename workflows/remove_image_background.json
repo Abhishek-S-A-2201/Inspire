@@ -1,0 +1,37 @@
+{
+  "190": {
+    "inputs": {
+      "image": "couch.jpeg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "191": {
+    "inputs": {
+      "image": [
+        "190",
+        0
+      ]
+    },
+    "class_type": "Image Remove Background (rembg)",
+    "_meta": {
+      "title": "Image Remove Background (rembg)"
+    }
+  },
+  "192": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "191",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}
