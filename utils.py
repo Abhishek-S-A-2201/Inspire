@@ -120,9 +120,9 @@ def get_queue(server_address: str = "http://127.0.0.1:8188", ttl: int = 10):
         print(e)
 
 
-def get_outputs(client_id):
+def get_outputs(client_id, no_images):
     time.sleep(10)
-    images = [""]*4
+    images = [""]*no_images
     for idx, image in enumerate(glob.glob(f"./Inspire/ComfyUI/output/{client_id}*")):
             images[idx] = image
     if not images:
