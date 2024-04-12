@@ -220,7 +220,7 @@
   },
   "186": {
     "inputs": {
-      "ipadapter_file": "ip-adapter_sd15.safetensors"
+      "ipadapter_file": "ip-adapter-plus_sd15.safetensors"
     },
     "class_type": "IPAdapterModelLoader",
     "_meta": {
