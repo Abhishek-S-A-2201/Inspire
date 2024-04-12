@@ -88,7 +88,7 @@ def queue_prompt(prompt, client_id, server_address: str = "http://127.0.0.1:8188
     p = {"prompt": prompt, "client_id": client_id}
     headers = {'Content-Type': 'application/json'}
     data = json.dumps(p).encode('utf-8')
-    req = requests.post("{}/prompt".format(server_address),
+    req = requests.post("http://127.0.0.1:8188/prompt",
                         data=data, headers=headers)
     return req.json()
 
@@ -108,7 +108,7 @@ def get_queue(server_address: str = "http://127.0.0.1:8188", ttl: int = 10):
         while True:
             time.sleep(ttl)
             req = requests.get(
-                "{}/queue".format(server_address), headers=headers)
+                "http://127.0.0.1:8188/queue", headers=headers)
             req = req.json()
             if req['queue_running'] or req['queue_pending']:
                 print(
