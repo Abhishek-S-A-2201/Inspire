@@ -62,7 +62,7 @@ if options == "Generate Images":
             t1.start()
             with st.spinner('Generating Images...'):
                 t1.join()
-                images = get_outputs(client_id)
+                images = get_outputs(client_id, 4)
 
             cols = st.columns(len(images))
             for idx, img in enumerate(images):
@@ -80,7 +80,7 @@ if options == "Generate Images":
             t1.start()
             with st.spinner('Generating Images...'):
                 t1.join()
-                images = get_outputs(client_id)
+                images = get_outputs(client_id, 4)
 
             cols = st.columns(len(images))
             for idx, img in enumerate(images):
@@ -114,7 +114,7 @@ elif options == "Upscale Image":
         t1.start()
         with st.spinner('Upscaling Images...'):
             t1.join()
-            images = get_outputs(client_id)
+            images = get_outputs(client_id, 1)
 
         cols = st.columns(len(images))
         for idx, img in enumerate(images):
@@ -146,7 +146,7 @@ elif options == "Remove Background":
         t1.start()
         with st.spinner('Removing image background...'):
             t1.join()
-            images = get_outputs(client_id)
+            images = get_outputs(client_id, 1)
 
         cols = st.columns(len(images))
         for idx, img in enumerate(images):
